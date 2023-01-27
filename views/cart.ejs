@@ -29,7 +29,7 @@
             <td><%= data.categories%></td>
             <td class = <%= data.id%>    ><%= data.price%></td> 
             <td>
-                <input type="number" class=<%= data.id%> oninput = "modifyPrice(<%= data.id%>)", name="quantity" min="0" max="10"> 
+                <input type="number" value="0" class=<%= data.id%> oninput = "modifyPrice(<%= data.id%>)", name="quantity" min="0" max="10"> 
             
             </td>
 
@@ -46,7 +46,8 @@
 
 
     <div class="cart-item">
-        <form action="/checkout" method="POST">
+        <form id="checkout" action="/checkout" method="POST">
+            
             <h5 id = "total-price"> Total :</h5>
             <button type="submit">Checkout</button>
 
@@ -54,6 +55,8 @@
     </div>
 </body>
 <script>
+    let dict = {}
+
    function modifyPrice(id){
     let collection = document.getElementsByClassName(id)
     let quantity = collection[1].value
@@ -68,8 +71,29 @@
     }
 
     document.getElementById("total-price").innerHTML = `Total Rs : ${over_all}`
+   dict[id] = quantity
+   console.log(document.getElementById('checkout').elements['1'])
+   for (let key in dict){
+    
+    if (document.getElementById("checkout").elements[key]!= undefined){
+        document.getElementById("checkout").elements[key].value = dict[key]
+    }
+
+    else{
+
+    var input = document.createElement('input');
+    input .setAttribute('name',key);
+    input .setAttribute('type',"hidden");
+
+    input.setAttribute('value',dict[key])
+    document.getElementById("checkout").appendChild(input);
+    }
+    
+    console.log(key,dict[key])
    }
 
+   }
+   
 
 </script>
 </html>
