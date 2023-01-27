@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action = "/admin" method="POST">
+        <input type="text" placeholder="Product Id" name= "id">
+        <br>
+        <input type = "text" placeholder="Title" name="title">
+        <br>
+        <input type = "text-area" placeholder="Description" name="desc">
+        <br>
+        <input type = "text" placeholder="Price" name = "price">
+        <br>
+        <input type = "text-area" placeholder="Categories" name = "categories">
+        <button type="Submit">Add Item</button>
+    </form>
+    <br>
+
+    <div>
+        <input type="text" id= "pd" placeholder="Product Id" name= "id">
+        <button id = "btModify">Modify Item</button>
+    </div>
+
+    <a href="/logout"> Logout </a>
+</body>
+    <script>
+        function func(){
+            item = document.getElementById("pd").value;
+            window.location.href = `/admin/${item}`;
+        }
+        
+        button  = document.getElementById("btModify")
+        button.addEventListener("click",func)
+
+    </script>
+</html>

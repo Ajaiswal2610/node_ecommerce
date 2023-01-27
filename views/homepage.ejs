@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Welcome to the Shopping app </h3>
+    <h3> Available products are </h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th score = "col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+          </tr>
+
+            <% data.forEach(function(data) { %>
+            <tr>
+
+            <td><%= data.id %></td>
+            <td><%= data.title%></td>
+            <td><%= data.desc%></td> 
+            <td><%= data.categories%></td>
+            <td><%= data.price%></td> 
+            </tr>
+
+            <% }); %> 
+        </thead>
+
+        </table>
+        <a href="/login"> Login </a>
+        <a href="/register"> Register </a>
+
+</body>
+</html>

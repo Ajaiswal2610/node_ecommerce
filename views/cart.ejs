@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+          <tr>
+            <th score = "col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+
+          </tr>
+
+            <% data.forEach(function(data) { %>
+            <tr>
+
+            <td><%= data.id %></td>
+            <td><%= data.title%></td>
+            <td><%= data.desc%></td> 
+            <td><%= data.categories%></td>
+            <td class = <%= data.id%>    ><%= data.price%></td> 
+            <td>
+                <input type="number" id=<%= data.id%> oninput = "modifyPrice(<%= data.id%>)", name="quantity" min="0" max="10"> 
+            </td>
+            <td class=<%= data.id%>>
+            </td>
+
+            </tr>
+
+            <% }); %> 
+        </thead>
+
+        </table>
+
+
+    <div class="checkout">
+        <form action="/checkout">
+            
+
+        </form>
+    </div>
+</body>
+<script>
+   function modifyPrice(id){
+    let quantity = document.getElementById(id).value
+    let price  = document.getElementsByClassName(id)
+    let total = (quantity*price[0].innerHTML)
+    price[1].innerHTML = total
+   }
+</script>
+</html>

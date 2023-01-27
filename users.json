@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "63d0dec151969a56c543520e"
+  },
+  "username": "Abhishek",
+  "email": "ajaiswal@deqode.com",
+  "password": "12345678",
+  "isAdmin": "1",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674632897950"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674632897950"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d10f8d8b0c128f9e800b8a"
+  },
+  "username": "adfadsf",
+  "email": "asdfasdf@gmail.com",
+  "password": "asdfasdf",
+  "isAdmin": "1",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674645389874"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674645389874"
+    }
+  },
+  "__v": 0
+}]

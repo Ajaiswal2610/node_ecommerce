@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "63d0c86ed74a86cf73b7f6f7"
+  },
+  "id": "1",
+  "title": "Iphone 2",
+  "desc": "new quality phone",
+  "categories": [
+    "phone",
+    "electronics"
+  ],
+  "price": 84579345,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674627182604"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674627182604"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d0fdd3b90911927c166459"
+  },
+  "id": "2",
+  "title": "SonyXperia",
+  "desc": "Fast",
+  "categories": [
+    "phone",
+    "electroinics"
+  ],
+  "price": "87457",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674640851971"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674655570816"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d1189e972ebb96b0314bda"
+  },
+  "id": "3",
+  "title": "Iphone Max",
+  "desc": "random waste",
+  "categories": [
+    "Iphone ",
+    " Electronice"
+  ],
+  "price": "986797",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1674647710890"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1674647710890"
+    }
+  },
+  "__v": 0
+}]

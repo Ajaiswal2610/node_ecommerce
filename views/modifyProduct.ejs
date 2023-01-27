@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action = "/admin/<%= id%>" method="POST" id="modify">
+        <input type="text" placeholder="Product Id" name= "id" value = <%= data.id %> readonly>
+        <br>
+        <input type = "text" placeholder="Title" name="title" id="title" value = <%= data.title %>>
+        <br>
+        <input type = "text-area" placeholder="Description" id="desc" name="desc" value = <%= data.desc %> >
+        <br>
+        <input type = "text" placeholder="Price" id="price" name = "price" value = <%=data.price %> >
+        <br>
+        <input type = "text-area" id = "cat" placeholder="Categories" name = "categories" >
+        <button type="Submit">Edit Item</button>
+    </form>
+    <a href="/logout"> Logout </a>
+</body>
+<script>
+    document.getElementById("title").value = '<%- data.title%>'
+    document.getElementById("desc").value = '<%- data.desc%>'
+    document.getElementById("price").value = '<%- data.price%>'
+    document.getElementById("cat").value = '<%- data.categories%>'
+    
+</script>
+</html>
