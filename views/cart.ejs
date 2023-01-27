@@ -29,10 +29,13 @@
             <td><%= data.categories%></td>
             <td class = <%= data.id%>    ><%= data.price%></td> 
             <td>
-                <input type="number" id=<%= data.id%> oninput = "modifyPrice(<%= data.id%>)", name="quantity" min="0" max="10"> 
+                <input type="number" class=<%= data.id%> oninput = "modifyPrice(<%= data.id%>)", name="quantity" min="0" max="10"> 
+            
             </td>
-            <td class=<%= data.id%>>
+
+            <td class = "total" id=<%= data.id%>>
             </td>
+         
 
             </tr>
 
@@ -42,19 +45,31 @@
         </table>
 
 
-    <div class="checkout">
-        <form action="/checkout">
-            
+    <div class="cart-item">
+        <form action="/checkout" method="POST">
+            <h5 id = "total-price"> Total :</h5>
+            <button type="submit">Checkout</button>
 
         </form>
     </div>
 </body>
 <script>
    function modifyPrice(id){
-    let quantity = document.getElementById(id).value
-    let price  = document.getElementsByClassName(id)
-    let total = (quantity*price[0].innerHTML)
-    price[1].innerHTML = total
+    let collection = document.getElementsByClassName(id)
+    let quantity = collection[1].value
+    let price = collection[0].innerHTML
+    document.getElementById(id).innerText = (quantity*price)
+    let over_all = 0
+
+    collection = (document.getElementsByClassName("total"))
+    
+    for (let i = 0; i < collection.length; i++) {
+        over_all = over_all + Number(collection[i].outerText)
+    }
+
+    document.getElementById("total-price").innerHTML = `Total Rs : ${over_all}`
    }
+
+
 </script>
 </html>
