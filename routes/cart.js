@@ -1,30 +1,40 @@
 const { Router } = require('express');
 const Cart = require('../models/carts');
 const router = require("express").Router();
-
+var round = Math.round;
 
 
 async function register_order(order,username){
     order_body = {}
     order_body['userId'] = username
     order_body['products'] = []
-    for (key in order){
-        temp = {}
-        temp['productId'] = key
-        temp['quantity'] = order[key]
-        order_body['products'].push(temp)
+    try{
+        for (key in order){
+            temp = {}
+            temp['productId'] = key
+            temp['quantity'] = round(order[key])
+            order_body['products'].push(temp)
+        }
+    }
+    catch(error){
+        console.log(error)
     }
 
-    let data = new Cart(order_body);
-    let result = await data.save();
-
-    resp.send(result);
+    try{
+        let data = new Cart(order_body);
+        let result = await data.save();
+        return result
+    }
+    catch(error){
+        return error
+    }
+  
 
 }
 
 router.post("/checkout/:username" , (req,resp)=>{
-    resp.send(register_order(req.body, req.params.username))
-    resp.send(req.body)
+    let result = (register_order(req.body, req.params.username))
+    resp.send(result)
 
 })
 
