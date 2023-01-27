@@ -46,7 +46,7 @@
 
 
     <div class="cart-item">
-        <form id="checkout" action="/checkout" method="POST">
+        <form id="checkout" action="/checkout/<%= username%>" method="POST">
             
             <h5 id = "total-price"> Total :</h5>
             <button type="submit">Checkout</button>
@@ -71,7 +71,10 @@
     }
 
     document.getElementById("total-price").innerHTML = `Total Rs : ${over_all}`
-   dict[id] = quantity
+    if (quantity>0){
+        dict[id] = quantity
+
+    }
    console.log(document.getElementById('checkout').elements['1'])
    for (let key in dict){
     
