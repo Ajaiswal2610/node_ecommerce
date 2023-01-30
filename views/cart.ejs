@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body >
     <table class="table">
         <thead>
           <tr>
@@ -29,10 +29,20 @@
             <td><%= data.categories%></td>
             <td class = <%= data.id%>    ><%= data.price%></td> 
             <td>
-                <input type="number" id=<%= data.id%> oninput = "modifyPrice(<%= data.id%>)", name="quantity" min="0" max="10"> 
+                <form action="cart/add/<%-data.id%>" class=<%=data.id%> method = "POST">
+                    <button class="btn btn-sm btn-primary" style = background-color:rgb(103,101,221)>ADD</button>
+                </form>
             </td>
-            <td class=<%= data.id%>>
+            <td>
+                <form action="cart/remove/<%-data.id%>" class=<%=data.id%> method= "POST">
+                    <button class="btn btn-sm btn-primary" style = background-color:rgb(164,78,78)>REMOVE</button>
+                </form>
             </td>
+
+
+            <td class = "total" id=<%= data.id%>>
+            </td>
+         
 
             </tr>
 
@@ -42,19 +52,65 @@
         </table>
 
 
-    <div class="checkout">
-        <form action="/checkout">
+    <div class="cart-item">
+        <form id="checkout" action="/checkout/<%= username%>" method="POST">
             
+            <h5 id = "total-price"> Total :</h5>
+            <button type="submit">Checkout</button>
 
         </form>
     </div>
 </body>
 <script>
-   function modifyPrice(id){
-    let quantity = document.getElementById(id).value
-    let price  = document.getElementsByClassName(id)
-    let total = (quantity*price[0].innerHTML)
-    price[1].innerHTML = total
-   }
+
+    function ADD(id){
+        console.log(id)
+    }
+    function REMOVE(id){
+        console.log(id)
+    }
+//     let dict = {}
+
+//    function modifyPrice(id){
+//     let collection = document.getElementsByClassName(id)
+//     let quantity = collection[1].value
+//     let price = collection[0].innerHTML
+//     document.getElementById(id).innerText = (quantity*price)
+//     let over_all = 0
+
+//     collection = (document.getElementsByClassName("total"))
+    
+//     for (let i = 0; i < collection.length; i++) {
+//         over_all = over_all + Number(collection[i].outerText)
+//     }
+
+//     document.getElementById("total-price").innerHTML = `Total Rs : ${over_all}`
+//     if (quantity>0){
+//         dict[id] = quantity
+
+//     }
+//    console.log(document.getElementById('checkout').elements['1'])
+//    for (let key in dict){
+    
+//     if (document.getElementById("checkout").elements[key]!= undefined){
+//         document.getElementById("checkout").elements[key].value = dict[key]
+//     }
+
+//     else{
+
+//     var input = document.createElement('input');
+//     input .setAttribute('name',key);
+//     input .setAttribute('type',"hidden");
+
+//     input.setAttribute('value',dict[key])
+//     document.getElementById("checkout").appendChild(input);
+//     }
+    
+//     console.log(key,dict[key])
+//    }
+
+//    }
+   
+
 </script>
 </html>
