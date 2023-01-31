@@ -44,14 +44,9 @@ router.post("/login",log_middleware, async (req,resp)=>{
         resp.redirect("/admin")
     }
     else {
-        resp.redirect(`login/${req.body.username}`)
+        resp.redirect('/cart')
     }
     
-})
-
-router.get("/login/:username",connectEnsureLogin.ensureLoggedIn(), async (req,resp)=>{
-    let data = await product_model.find();
-    resp.render("cart",{username:req.params.username, data:data})
 })
 
 
