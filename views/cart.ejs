@@ -15,12 +15,14 @@
             <th scope="col">Description</th>
             <th scope="col">Category</th>
             <th scope="col">Price</th>
+            <th scope="col"> ADD</th>
+            <th scope="col"> Remove</th>
             <th scope="col">Quantity</th>
             <th scope="col">Total</th>
 
           </tr>
 
-            <% data.forEach(function(data) { %>
+            <% product_data.forEach(function(data) { %>
             <tr>
 
             <td><%= data.id %></td>
@@ -38,12 +40,14 @@
                     <button class="btn btn-sm btn-primary" style = background-color:rgb(164,78,78)>REMOVE</button>
                 </form>
             </td>
-
-
-            <td class = "total" id=<%= data.id%>>
+            <td>
+                <%=data.quantity%>
             </td>
-         
 
+            <td class="total">
+                <%=data.total%>
+            </td>
+             
             </tr>
 
             <% }); %> 
@@ -55,62 +59,29 @@
     <div class="cart-item">
         <form id="checkout" action="/checkout/<%= username%>" method="POST">
             
-            <h5 id = "total-price"> Total :</h5>
+            <h5 id = "total-price"> Total :></h5>
             <button type="submit">Checkout</button>
 
         </form>
     </div>
+
+
+    <script>
+    let total = 0;
+    let collection = document.getElementsByClassName('total');
+    for(var i = 0; i < collection.length; i++)
+    {
+        total+= (Number(collection[i].outerText))
+    }
+            
+    console.log(total)
+
+
+    document.getElementById('total-price').innerText = `Total :${total} `
+        </script>
 </body>
-<script>
 
-    function ADD(id){
-        console.log(id)
-    }
-    function REMOVE(id){
-        console.log(id)
-    }
-//     let dict = {}
 
-//    function modifyPrice(id){
-//     let collection = document.getElementsByClassName(id)
-//     let quantity = collection[1].value
-//     let price = collection[0].innerHTML
-//     document.getElementById(id).innerText = (quantity*price)
-//     let over_all = 0
 
-//     collection = (document.getElementsByClassName("total"))
-    
-//     for (let i = 0; i < collection.length; i++) {
-//         over_all = over_all + Number(collection[i].outerText)
-//     }
 
-//     document.getElementById("total-price").innerHTML = `Total Rs : ${over_all}`
-//     if (quantity>0){
-//         dict[id] = quantity
-
-//     }
-//    console.log(document.getElementById('checkout').elements['1'])
-//    for (let key in dict){
-    
-//     if (document.getElementById("checkout").elements[key]!= undefined){
-//         document.getElementById("checkout").elements[key].value = dict[key]
-//     }
-
-//     else{
-
-//     var input = document.createElement('input');
-//     input .setAttribute('name',key);
-//     input .setAttribute('type',"hidden");
-
-//     input.setAttribute('value',dict[key])
-//     document.getElementById("checkout").appendChild(input);
-//     }
-    
-//     console.log(key,dict[key])
-//    }
-
-//    }
-   
-
-</script>
 </html>
