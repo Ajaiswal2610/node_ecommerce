@@ -4,6 +4,8 @@ const dbconnect = require("./config");
 const passport = require('passport');
 dbconnect();
 const product_route = require('./routes/product')
+const pay_route = require('./routes/stripe')
+
 const cart_route = require('./routes/cart')
 const user_route = require('./routes/users');
 const { initializingPassport } = require('./passportConfig');
@@ -24,12 +26,13 @@ app.use(express.json());
 
 
 
-
 app.use('/', product_route)
 app.use('/',cart_route)
 app.use('/',user_route)
+app.use('/',pay_route)
+
 app.get('*', (req,resp)=>{
     resp.render("notfound")
 })
-app.listen(4000);
+app.listen(4500);
 

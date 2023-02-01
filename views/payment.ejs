@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<title>Stripe Payment Demo</title>
+<body>
+<h3>Welcome to Payment Gateway</h3>
+<form action="pay" method="POST">
+<input class="bg-transparent text-white p-2 h-10 mb-4" type="text" name="name" placeholder="Name" value="<%= username%>"  disabled>
+<input type="email" class="bg-transparent text-white p-2 h-10 mb-4" name="email" placeholder="Email" value="<%= email%>" disabled>
+<input class="bg-transparent text-white p-2 h-10 mb-4" type="text" name="amount" placeholder="Amount" value= "<%= amount%>" disabled>
+<script
+src="//checkout.stripe.com/v2/checkout.js"
+class="stripe-button"
+data-key="<%= key %>"
+data-amount="<%= amount%>"
+data-email = "<%= email%>"
+data-currency="usd"
+data-name= "<%= username%>"
+data-locale="auto" >
+
+</script>
+</form>
+</body>
+</html>
