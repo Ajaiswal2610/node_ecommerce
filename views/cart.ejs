@@ -55,18 +55,23 @@
 
         </table>
 
+    <h5 id = "total-price"> Total :></h5>
 
     <div class="cart-item">
-        <form id="checkout" action="/checkout/<%= username%>" method="POST">
-            
-            <h5 id = "total-price"> Total :></h5>
+        <form id="checkout" action="/checkout" method="POST">
+            <input type="text" id = "checkout_price" hidden name="price">
+
             <button type="submit">Checkout</button>
 
         </form>
     </div>
 
 
-    <script>
+   
+</body>
+
+
+<script>
     let total = 0;
     let collection = document.getElementsByClassName('total');
     for(var i = 0; i < collection.length; i++)
@@ -74,14 +79,9 @@
         total+= (Number(collection[i].outerText))
     }
             
-    console.log(total)
-
 
     document.getElementById('total-price').innerText = `Total :${total} `
-        </script>
-</body>
-
-
-
+    document.getElementById('checkout_price').value = total
+    </script>
 
 </html>

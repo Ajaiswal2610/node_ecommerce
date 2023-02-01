@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Cart = require('../models/carts');
 const product_model = require('../models/products')
+const order_model = require('../models/orders')
 const router = require("express").Router();
 const connectEnsureLogin = require('connect-ensure-login');
 const e = require('express');
@@ -32,7 +33,7 @@ router.get("/cart",connectEnsureLogin.ensureLoggedIn(), async (req,resp)=>{
                 if (cart["productId"]==pid){
                     item["quantity"] = cart["quantity"]
                     item["total"] = cart["quantity"]*Number(item["price"])
-                    console.log(item["quantity"],"quantity")
+                    // console.log(item["quantity"],"quantity")
     
                 }
             })
@@ -41,7 +42,7 @@ router.get("/cart",connectEnsureLogin.ensureLoggedIn(), async (req,resp)=>{
         
     })
 
-    console.log(product_data)
+    // console.log(product_data)
     resp.render("cart",{username:req.user.username, product_data:product_data})
 
 })
@@ -134,39 +135,36 @@ router.post("/cart/remove/:id",async (req, resp)=>{
     }
 })
 
-async function register_order(order){
-    order_body = {}
-    order_body['userId'] = username
-    order_body['products'] = []
-    try{
-        for (key in order){
-            temp = {}
-            temp['productId'] = key
-            temp['quantity'] = round(order[key])
-            order_body['products'].push(temp)
-        }
-    }
-    catch(error){
-        console.log(error)
-    }
+
+async function register_order(user){
+    cart_data = await Cart.findOne({userId:user})
+    cart_data = JSON.parse(JSON.stringify(cart_data))
+    let data = order_model(cart_data)
 
     try{
-        let data = new Cart(order_body);
-        let result = await data.save();
-        return result
+        let result = await order_model.save()
+    //  now empty the cart 
+    let d = await Cart.deleteOne({userId:user})
     }
-    catch(error){
-        return error
+    catch{
+        resp.render("Pending")
     }
-  
 
 }
 
-router.post("/checkout/:username" , (req,resp)=>{
+router.post("/checkout", (req,resp)=>{
+    console.log(req.body.price)
+    try{
+        resp.render('payment',{email:req.user.email,username:req.user.username,amount:req.body.price,key:process.env.STRIPE_PKEY})
 
-    resp.redirect('/payment')
+    }
+
+    catch{
+        resp.redirect('/login')
+    }
 
 })
 
 
-module.exports = router
+
+module.exports = router;
