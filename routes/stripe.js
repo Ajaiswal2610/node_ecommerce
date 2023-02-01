@@ -4,7 +4,10 @@ const express = require('express');
 const Cart = require('../models/carts');
 const Order = require('../models/orders')
 const router = require("express").Router();
+const bodyparser = require('body-parser') 
 
+router.use(bodyparser.urlencoded({extended:false}))
+router.use(bodyparser.json())
 async function register_order(user){
     cart_data = await Cart.findOne({userId:user})
     cart_data = JSON.parse(JSON.stringify(cart_data))
@@ -21,43 +24,28 @@ async function register_order(user){
 
 
 
-router.post('/pay', function(req, resp){
+router.post("/pay", async (req, res) => {
+    const { product } = req.body;
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+            {
+                price_data: {
+                    currency: "inr",
+                    product_data: {
+                        name: product.name,
+                        
+                    },
+                    unit_amount: product.amount * 100,
+                },
+                quantity: product.quantity,
+            },
+        ],
+        mode: "payment",
+        success_url: `http://localhost:4500/success.html`,
+        cancel_url: `http://localhost:4500/cancel.html`,
+    });
 
-    try{user = req.user.username}
-    catch{
-        resp.render("login")
-    }
-    try{
-        register_order(user)
-        resp.send('success')
-
-    }
-    catch(error){
-        resp.send(error)
-    }
-    // // Moreover you can take more details from user
-    // // like Address, Name, etc from form
-    // stripe.customers.create({
-    // email: req.body.stripeEmail,
-    // source: req.body.stripeToken,
-    // })
-    // .then((customer) => {
-     
-    // return stripe.PaymentIntent.create({
-    // amount: 56456, // Charing Rs 25
-    // currency: 'usd',
-    // customer: customer.id
-    // });
-    // })
-    // .then((charge) => {
-
-    // res.render("Successfully ordered") // If no error occurs
-    // })
-    // .catch((err) => {
-    // res.send(err) // If some error occurs
-    // });
-
-    // 
-})
-
+    res.json({ id: session.id });
+});
 module.exports = router

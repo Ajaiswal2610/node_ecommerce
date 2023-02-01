@@ -1,4 +1,7 @@
 const { Router } = require('express');
+const stripe  = require('stripe')
+const bodyparser = require('body-parser')
+
 const Cart = require('../models/carts');
 const product_model = require('../models/products')
 const order_model = require('../models/orders')
@@ -8,7 +11,8 @@ const e = require('express');
 var round = Math.round;
  
 
-
+router.use(bodyparser.urlencoded({extended:false}))
+router.use(bodyparser.json())
 
 router.get("/cart",connectEnsureLogin.ensureLoggedIn(), async (req,resp)=>{
     const user = req.user.username
@@ -103,7 +107,7 @@ router.post("/cart/remove/:id",async (req, resp)=>{
         //  check if the products already available in the cart 
         // user.products
         // user.products({})
-        
+        console.log(user_cart)
         let user_products = user_cart['products']
         let isalready = false;
         // check if the item already added in the cart 
@@ -153,7 +157,6 @@ async function register_order(user){
 }
 
 router.post("/checkout", (req,resp)=>{
-    console.log(req.body.price)
     try{
         resp.render('payment',{email:req.user.email,username:req.user.username,amount:req.body.price,key:process.env.STRIPE_PKEY})
 
